@@ -6,12 +6,12 @@ from oauth2client.service_account import ServiceAccountCredentials
 app = Flask(__name__)
 
 # Configuração do Google Sheets
-def get_google_sheet():
-    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
-    client = gspread.authorize(creds)
-    sheet = client.open("CorridaRio2025").sheet1  # Altere para o nome da sua planilha
-    return sheet
+#def get_google_sheet():
+#    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+#    creds = ServiceAccountCredentials.from_json_keyfile_name("credentials.json", scope)
+#    client = gspread.authorize(creds)
+#    sheet = client.open("CorridaRio2025").sheet1  # Altere para o nome da sua planilha
+#    return sheet
 
 # Rota principal (formulário)
 @app.route('/')
@@ -23,14 +23,16 @@ def index():
 def submit():
     # Coletar dados do formulário
     team_name = request.form['team_name']
-    athletes = request.form.getlist('athletes[]')  # Lista de atletas
+    athletes = request.form.getlist('athletes[]')
+    birth_dates = request.form.getlist('birth_dates[]')
+    shirt_sizes = request.form.getlist('shirt_sizes[]')
 
-    # Salvar dados no Google Sheets
-    sheet = get_google_sheet()
-    for athlete in athletes:
-        sheet.append_row([team_name, athlete])  # Adicione mais campos conforme necessário
+#    # Salvar dados no Google Sheets
+#    sheet = get_google_sheet()
+#   for athlete, birth_date, shirt_size in zip(athletes, birth_dates, shirt_sizes):
+#        sheet.append_row([team_name, athlete, birth_date, shirt_size])
 
-    return redirect(url_for('index'))
+#    return redirect(url_for('index'))
 
 # Iniciar o servidor
 if __name__ == '__main__':

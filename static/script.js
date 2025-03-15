@@ -1,34 +1,49 @@
-/*
-  This is your site JavaScript code - you can add interactivity!
-*/
+document.addEventListener('DOMContentLoaded', function () {
+  let athleteCount = 1;
+  const addButton = document.getElementById('add-athlete');
+  const form = document.querySelector('form');
 
-// Print a message in the browser's dev tools console each time the page loads
-// Use your menus or right-click / control-click and choose "Inspect" > "Console"
-console.log("Hello 🌎");
+  function cloneAthleteFields() {
+      const originalAthlete = document.querySelector('.atleta');
+      const newAthlete = originalAthlete.cloneNode(true);
+      athleteCount++;
 
-/* 
-Make the "Click me!" button move when the visitor clicks it:
-- First add the button to the page by following the steps in the TODO 🚧
-*/
-const btn = document.querySelector("button"); // Get the button from the page
-if (btn) { // Detect clicks on the button
-  btn.onclick = function () {
-    // The 'dipped' class in style.css changes the appearance on click
-    btn.classList.toggle("dipped");
-  };
-}
+      // Atualiza o título e IDs
+      newAthlete.querySelector('h3').textContent = `Atleta ${athleteCount}`;
+      newAthlete.querySelectorAll('input, select').forEach(input => {
+          const newId = input.id + '_' + athleteCount;
+          input.id = newId;
+          input.name = input.name.replace('[]', `_${athleteCount}[]`);
+      });
 
+      // Adiciona botão "Remover"
+      const removeButton = document.createElement('button');
+      removeButton.type = 'button';
+      removeButton.textContent = 'Remover Atleta';
+      removeButton.onclick = () => newAthlete.remove();
+      newAthlete.appendChild(removeButton);
 
-// ----- GLITCH STARTER PROJECT HELPER CODE -----
+      // Insere antes do botão "Adicionar Atleta"
+      addButton.parentNode.insertBefore(newAthlete, addButton);
+  }
 
-// Open file when the link in the preview is clicked
-let goto = (file, line) => {
-  window.parent.postMessage(
-    { type: "glitch/go-to-line", payload: { filePath: file, line: line } }, "*"
-  );
-};
-// Get the file opening button from its class name
-const filer = document.querySelectorAll(".fileopener");
-filer.forEach((f) => {
-  f.onclick = () => { goto(f.dataset.file, f.dataset.line); };
+  addButton.addEventListener('click', cloneAthleteFields);
+
+  // Validação básica
+  form.addEventListener('submit', function (event) {
+      let isValid = true;
+      document.querySelectorAll('input[required], select[required]').forEach(input => {
+          if (!input.value.trim()) {
+              isValid = false;
+              input.style.borderColor = 'red';
+          } else {
+              input.style.borderColor = '#ccc';
+          }
+      });
+
+      if (!isValid) {
+          event.preventDefault();
+          alert('Preencha todos os campos obrigatórios!');
+      }
+  });
 });

@@ -4,10 +4,11 @@ body {
   background-color: #f4f4f4;
   margin: 0;
   padding: 0;
+  min-height: 100vh; /* Permite que o body cresça conforme o conteúdo */
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  align-items: flex-start; /* Alinha o container no topo */
+  padding: 20px; /* Espaço ao redor do container */
 }
 
 /* Container do formulário */
@@ -17,7 +18,10 @@ body {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 500px;
+  max-width: 500px; /* Largura máxima, mas ajustável verticalmente */
+  margin: 20px 0; /* Espaço acima e abaixo */
+  max-height: 90vh; /* Altura máxima igual a 90% da tela */
+  overflow-y: auto; /* Adiciona scroll vertical se necessário */
 }
 
 /* Título do formulário */

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Equipe - Corrida Rio 2025</title>
-    <!--url_for para informar corretamente e sem erro o caminho do arquivo-->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -47,6 +46,6 @@
         </form>
     </div>
 
-    <script src="script.js"></script>
+     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
