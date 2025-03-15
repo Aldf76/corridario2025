@@ -1,71 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Equipe - Corrida Rio 2025</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-      .form-container {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        width: 300px;
-      }
-      .form-container h2 {
-        margin-bottom: 20px;
-        font-size: 24px;
-        color: #333;
-      }
-      .form-container label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-        color: #555;
-      }
-      .form-container input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-      .form-container button {
-        width: 100%;
-        padding: 10px;
-        background-color: #28a745;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-      .form-container button:hover {
-        background-color: #218838;
-      }
-    </style>
-  </head>
-  <body>
+    <!--url_for para informar corretamente e sem erro o caminho do arquivo-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
     <div class="form-container">
-      <h2>Cadastro de Equipe</h2>
-      <form action="/submit" method="POST">
-        <label for="team_name">Nome da Equipe:</label>
-        <input type="text" id="team_name" name="team_name" required />
+        <h2>Cadastro de Equipe</h2>
+        <form action="/submit" method="POST">
+            <!-- Campo para o nome da equipe -->
+            <div class="form-group">
+                <label for="team_name">Nome da Equipe:</label>
+                <input type="text" id="team_name" name="team_name" required>
+            </div>
 
-        <label for="athlete_name">Nome do Atleta:</label>
-        <input type="text" id="athlete_name" name="athletes[]" required />
+            <!-- Campos para o atleta -->
+            <div class="atleta">
+                <h3>Atleta 1</h3>
+                <div class="form-group">
+                    <label for="athlete_name">Nome do Atleta:</label>
+                    <input type="text" id="athlete_name" name="athletes[]" required>
+                </div>
+                <div class="form-group">
+                    <label for="birth_date">Data de Nascimento:</label>
+                    <input type="date" id="birth_date" name="birth_dates[]" required>
+                </div>
+                <div class="form-group">
+                    <label for="shirt_size">Tamanho da Camisa:</label>
+                    <select id="shirt_size" name="shirt_sizes[]" required>
+                        <option value="P">P</option>
+                        <option value="M">M</option>
+                        <option value="G">G</option>
+                        <option value="GG">GG</option>
+                    </select>
+                </div>
+            </div>
 
-        <button type="submit">Enviar</button>
-      </form>
+            <!-- Botão para adicionar mais atletas -->
+            <button type="button" id="add-athlete">Adicionar Atleta</button>
+
+            <!-- Botão de envio do formulário -->
+            <button type="submit">Enviar</button>
+        </form>
     </div>
-  </body>
+
+    <script src="script.js"></script>
+</body>
 </html>
